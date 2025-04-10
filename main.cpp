@@ -1,3 +1,4 @@
+#include <BRepClass_FaceClassifier.hxx>
 #include <BRepTools.hxx>
 #include <BRep_Tool.hxx>
 #include <Geom_Plane.hxx>
@@ -9,6 +10,7 @@
 #include <TopoDS_Shape.hxx>
 #include <fstream>
 #include <gp_Pnt.hxx>
+#include <gp_Pnt2d.hxx>
 #include <iostream>
 
 void write_simple_ply(const std::string& filename,
