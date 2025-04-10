@@ -14,6 +14,12 @@
 void write_simple_ply(const std::string& filename,
                       const std::vector<gp_Pnt>& points) {
   std::ofstream ply(filename);
+
+  if (!ply.is_open()) {
+    std::cerr << "❌ Failed to open " << filename << " for writing.\n";
+    return;
+  }
+
   ply << "ply\nformat ascii 1.0\n";
   ply << "element vertex " << points.size() << "\n";
   ply << "property float x\nproperty float y\nproperty float z\n";
@@ -22,9 +28,14 @@ void write_simple_ply(const std::string& filename,
     ply << p.X() << " " << p.Y() << " " << p.Z() << "\n";
   }
   ply.close();
+
+  std::cout << "✅ Wrote " << points.size() << " points to " << filename
+            << "\n";
 }
 
 int main() {
+  std::cout << "📦 Loading STEP file...\n";
+
   STEPControl_Reader reader;
   if (reader.ReadFile("/Users/gracegerwe/Downloads/Servo_Horn.step") !=
       IFSelect_RetDone) {
@@ -34,12 +45,15 @@ int main() {
   reader.TransferRoots();
   TopoDS_Shape shape = reader.OneShape();
 
+  std::cout << "✅ STEP file loaded.\n";
+
   TopoDS_Face face;
   for (TopExp_Explorer exp(shape, TopAbs_FACE); exp.More(); exp.Next()) {
     TopoDS_Face f = TopoDS::Face(exp.Current());
     Handle(Geom_Surface) surf = BRep_Tool::Surface(f);
     if (!surf.IsNull() && Handle(Geom_Plane)::DownCast(surf)) {
       face = f;
+      std::cout << "✅ Found planar face.\n";
       break;
     }
   }
@@ -52,6 +66,10 @@ int main() {
   // Sample grid points on face
   Standard_Real umin, umax, vmin, vmax;
   BRepTools::UVBounds(face, umin, umax, vmin, vmax);
+
+  std::cout << "📐 UV bounds: u=[" << umin << ", " << umax << "] v=[" << vmin
+            << ", " << vmax << "]\n";
+
   int N = 10;
   std::vector<gp_Pnt> points;
   Handle(Geom_Surface) surf = BRep_Tool::Surface(face);
@@ -65,7 +83,7 @@ int main() {
     }
   }
 
-  write_simple_ply("data/probed_points.ply", points);
+  write_simple_ply("../data/probed_points.ply", points);
   std::cout << "Done. View in MeshLab.\n";
   return 0;
 }
