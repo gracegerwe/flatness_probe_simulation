@@ -1,6 +1,8 @@
 #include <BRepClass_FaceClassifier.hxx>
+#include <BRepGProp.hxx>
 #include <BRepTools.hxx>
 #include <BRep_Tool.hxx>
+#include <GProp_GProps.hxx>
 #include <Geom_Plane.hxx>
 #include <Geom_Surface.hxx>
 #include <STEPControl_Reader.hxx>
@@ -8,6 +10,7 @@
 #include <TopoDS.hxx>
 #include <TopoDS_Face.hxx>
 #include <TopoDS_Shape.hxx>
+#include <algorithm>
 #include <fstream>
 #include <gp_Pnt.hxx>
 #include <gp_Pnt2d.hxx>
