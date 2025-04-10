@@ -11,6 +11,7 @@ set(CMAKE_PREFIX_PATH "$ENV{HOME}/occt-install")
 
 # Include + link OpenCascade
 include_directories("${OCCT_DIR}/include/opencascade")
+include_directories("/opt/homebrew/Cellar/eigen/3.4.0_1/include/eigen3")
 link_directories("${OCCT_DIR}/lib")
 
 find_package(OpenCASCADE REQUIRED)

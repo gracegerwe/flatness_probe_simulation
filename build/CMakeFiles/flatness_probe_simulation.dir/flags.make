@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/include/opencascade -isystem /Users/gracegerwe/occt-install/include/opencascade
+CXX_INCLUDES = -I/include/opencascade -I/opt/homebrew/Cellar/eigen/3.4.0_1/include/eigen3 -isystem /Users/gracegerwe/occt-install/include/opencascade
 
 CXX_FLAGSarm64 = -g -std=gnu++11 -arch arm64
 

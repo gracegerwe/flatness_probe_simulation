@@ -1,0 +1,5 @@
+Face: 2
+Probes: 961
+Max Deviation: 1.15 mm
+Tolerance: ±0.05 mm
+Result: FAIL ❌
